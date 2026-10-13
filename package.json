@@ -20,5 +20,11 @@
     "@vitejs/plugin-react": "^6.1.0",
     "oxlint": "^1.79.0",
     "vite": "^8.2.2"
+  },
+  "scripts": {
+    "local": "vite",
+    "build": "vite build",
+    "build:dev": "vite build --mode dev",
+    "preview": "vite preview"
   }
 }

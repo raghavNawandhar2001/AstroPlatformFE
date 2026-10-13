@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config/api';
 
 const MONTHS = [
     { value: 1, label: 'January' }, { value: 2, label: 'February' }, { value: 3, label: 'March' },
@@ -32,7 +33,7 @@ export default function ProfilesTab({ onLoadProfile }) {
 
     const fetchProfiles = async () => {
         try {
-            const res = await fetch('http://localhost:9090/api/profiles');
+            const res = await fetch(`${API_BASE_URL}/api/profiles`);
             if (res.ok) setSavedProfiles(await res.json());
         } catch (err) {
             setError("Failed to fetch profiles from database.");
@@ -45,7 +46,7 @@ export default function ProfilesTab({ onLoadProfile }) {
         if (!window.confirm(`Are you sure you want to delete ${name}'s profile?`)) return;
 
         try {
-            const res = await fetch(`http://localhost:9090/api/profiles/${id}`, { method: 'DELETE' });
+            const res = await fetch(`${API_BASE_URL}/api/profiles/${id}`, { method: 'DELETE' });
             if (!res.ok) throw new Error('Failed to delete profile');
             // Remove from UI without reloading
             setSavedProfiles(savedProfiles.filter(p => p.id !== id));
@@ -95,7 +96,7 @@ export default function ProfilesTab({ onLoadProfile }) {
         e.preventDefault();
         setSaving(true); setError('');
         try {
-            const res = await fetch(`http://localhost:9090/api/profiles/${editingProfile.id}`, {
+            const res = await fetch(`${API_BASE_URL}/api/profiles/${editingProfile.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(editingProfile)

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ChartCard from '../components/ChartCard';
 import DashaTreeItem from '../components/DashaTreeItem';
+import { API_BASE_URL } from '../config/api';
 
 const extractCurrentPath = (dashas) => {
     let path = [];
@@ -88,7 +89,7 @@ export default function BirthChartTab({ chartResult, setChartResult, profileToLo
         const dataToSend = directData || form;
 
         try {
-            const response = await fetch('http://localhost:9090/api/chart/d1', {
+            const response = await fetch(`${API_BASE_URL}/api/chart/d1`, {
                 method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSend),
             });
             if (!response.ok) throw new Error('Failed to fetch chart data.');
@@ -103,7 +104,7 @@ export default function BirthChartTab({ chartResult, setChartResult, profileToLo
     const saveProfileToDb = async () => {
         setLoading(true); setError(''); setSuccessMsg('');
         try {
-            const response = await fetch('http://localhost:9090/api/profiles', {
+            const response = await fetch(`${API_BASE_URL}/api/profiles`, {
                 method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form),
             });
             if (!response.ok) throw new Error('Failed to save profile.');

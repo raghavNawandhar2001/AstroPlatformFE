@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { API_BASE_URL } from '../config/api';
 
 const MONTHS = [
     { value: 1, label: 'January' }, { value: 2, label: 'February' }, { value: 3, label: 'March' },
@@ -63,7 +64,7 @@ export default function PanchangTab() {
         e.preventDefault();
         setLoading(true); setError('');
         try {
-            const response = await fetch('http://localhost:9090/api/panchang/daily', {
+            const response = await fetch(`${API_BASE_URL}/api/panchang/daily`, {
                 method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form),
             });
             if (!response.ok) throw new Error('Panchang calculation failed.');
